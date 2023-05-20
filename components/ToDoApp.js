@@ -44,7 +44,6 @@ function ToDoApp() {
     setData(() => newArray.filter((item) => item.id !== itemId));
   };
   const HandleEdit = (Item) => {
-    console.log(Item);
     setTaskEdit(Item.subtext);
     setTitleEdit(Item.title);
     setModalVisible2(true);
@@ -53,7 +52,7 @@ function ToDoApp() {
   const HandleEditSubmit = () => {
     setData([
       ...data,
-      [
+      ...[
         {
           id: data.length + 2,
           title: titleEdit,
@@ -63,6 +62,7 @@ function ToDoApp() {
       ],
     ]);
     setModalVisible2(false);
+    console.log(data);
   };
 
   const Item = ({ item }) => (
