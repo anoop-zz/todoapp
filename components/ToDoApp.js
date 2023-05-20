@@ -43,20 +43,24 @@ function ToDoApp() {
     const newArray = [...data];
     setData(() => newArray.filter((item) => item.id !== itemId));
   };
-  const HandleEdit = ({ item }) => {
-    setTaskEdit(item.subtext);
-    setTitleEdit(item.title);
+  const HandleEdit = (Item) => {
+    console.log(Item);
+    setTaskEdit(Item.subtext);
+    setTitleEdit(Item.title);
     setModalVisible2(true);
   };
 
   const HandleEditSubmit = () => {
     setData([
-      {
-        id: data.length + 2,
-        title: titleEdit,
-        subtext: taskEdit,
-        time: moment().utcOffset("+05:30").format("MMM Do YY"),
-      },
+      ...data,
+      [
+        {
+          id: data.length + 2,
+          title: titleEdit,
+          subtext: taskEdit,
+          time: moment().utcOffset("+05:30").format("MMM Do YY"),
+        },
+      ],
     ]);
     setModalVisible2(false);
   };
@@ -70,7 +74,7 @@ function ToDoApp() {
         <View style={styles.iconContainer}>
           <TouchableOpacity
             onPress={() => {
-              HandleEdit({ item });
+              HandleEdit(item);
             }}
           >
             <MaterialCommunityIcons name="square-edit-outline" size={24} />
@@ -172,7 +176,7 @@ function ToDoApp() {
           <FlatList
             data={data}
             renderItem={({ item }) => <Item item={item} />}
-            keyExtractor={(item) => item.id}
+            keyExtractor={() => Math.random()}
           />
         </View>
       </SafeAreaView>
